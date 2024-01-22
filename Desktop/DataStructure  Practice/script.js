@@ -12,8 +12,12 @@ const restaurant = {
   starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
   mainMenu: ['Pizza', 'Pasta', 'Risotto'],
 
-  order: function(starterIndex , secondaryIndex){
-    return [this.starterMenu[starterIndex] , this.mainMenu[secondaryIndex]]
+  order: function (starterIndex, secondaryIndex) {
+    return [this.starterMenu[starterIndex], this.mainMenu[secondaryIndex]];
+  },
+
+  orderDelivery: function ({ starterIndex, mainIndex, time, address }) {
+    console.log(`order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`);
   },
 
   openingHours: {
@@ -32,26 +36,31 @@ const restaurant = {
   },
 };
 
+ restaurant.orderDelivery({
+  time: '22:30',
+  address: 'Via del Solo, 21',
+  mainIndex: 2,
+  starterIndex: 2,
+});
+
 // My practicing Time
 // Destructaring Array
-const arr = [2, 3, 4];
-const a = arr[0];
-const b = arr[1];
-const c = arr[2];
+// const arr = [2, 3, 4];
+// const a = arr[0];
+// const b = arr[1];
+// const c = arr[2];
 
-const [x, y, g] = arr;
+// const [x, y, g] = arr;
 
-console.log(x, y, g);
+// console.log(x, y, g);
 
-const orderPizza =restaurant.order(2,0);
+const orderPizza = restaurant.order(2, 0);
 console.log(orderPizza);
 
 // Practice Category
 
 let [main, , secondary] = restaurant.categories;
 console.log(main, secondary);
-
-
 
 //  Switching Variables
 
@@ -61,19 +70,54 @@ console.log(main, secondary);
 // console.log(main, secondary);
 
 [main, , secondary] = [secondary, , main];
-console.log(main , secondary)
-
+console.log(main, secondary);
 
 // Nested Array
 
-const nested = [1 , 2 , 5 , [3 ,4]];
- const  [A ,B, C ,[D ,E]] = nested;
- console.log(A ,B, C , D ,E);
-
+const nested = [1, 2, 5, [3, 4]];
+const [A, B, C, [D, E]] = nested;
+console.log(A, B, C, D, E);
 
 //  Destructing Object
 
-const {name , openingHours , categories} = restaurant;
-console.log(name ,categories, openingHours);
+const { name, openingHours, categories } = restaurant;
+console.log(name, categories, openingHours);
 
-const  { name: resturanteName , openingHours: hours , categories: tags } = restaurant;
+const {
+  name: resturanteName,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(resturanteName, hours, tags);
+
+// Default Values
+const { menu = [], starterMenu: starters = [] } = restaurant;
+console.log(menu, starters);
+
+// Mutating Variables
+
+let a = 111;
+let b = 999;
+const obj = { a: 23, b: 7, c: 14 };
+({ a, b } = obj);
+console.log(a, b);
+
+// Nested objects
+
+const {
+  fri: { open: o, close: c },
+} = openingHours;
+
+console.log(o, c);
+
+
+
+// The Spread Operator 
+
+const arr = [7 , 8 , 9];
+const badNewArr = [1,2, arr[0] , arr[1] , arr[2]];
+
+console.log(badNewArr)
+
+const newArr = [1, 2, ...arr];
+console.log(newArr);
